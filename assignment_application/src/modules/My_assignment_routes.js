@@ -1,13 +1,25 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from "./app_structural_module/app_components/Layout_assignment"
 import Quotes from './assignment_dashboard/Quotes'
 import Stocks from './assignment_dashboard/Stocks'
+
 const Assignment_routes = () => {
 
  return (
-  <Layout>
-   <Stocks />
-   <Quotes />
-  </Layout>
+
+  <BrowserRouter>
+   <Routes>
+    <Route exact path={'/'} element={<Layout />}>
+     <Route exact path={'stocks'} element={<Stocks />} />
+     <Route exact path={'quotes'} element={<Quotes />} />
+    </Route>
+
+   </Routes>
+
+  </BrowserRouter>
+
+
+
  )
 }
 
