@@ -8,15 +8,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Stocks(props) {
  const navigate = useNavigate();
- const [isRowClicked, setIsRowClicked] = React.useState(false)
- const [rowClicked, setClickedRowInfo] = React.useState('')
+
  const [data, setData] = React.useState('')
 
 
  React.useEffect(() => {
-
   getData()
-
  }, [])
 
  const getData = () => {
@@ -34,19 +31,10 @@ export default function Stocks(props) {
  }
 
  const rowClickedFunction = (row) => navigate('/quotes', { state: { rowClicked: row.Symbol } })
-
-
-
-
-
-
  return (
   <Grid sm={3}>
-   <Paper elevation={4}
-   >
+   <Paper elevation={4}   >
     {<TableApp tableData={data} rowClickedFunction={rowClickedFunction} />}
-
-
    </Paper>
   </Grid>
  );

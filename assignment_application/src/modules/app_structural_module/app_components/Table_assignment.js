@@ -9,10 +9,10 @@ const Table = ({ tableData, rowClickedFunction }) => {
  //data and fetching state
  const [data, setData] = useState(tableData);
 
- const [isError, setIsError] = useState(false);
+ // const [isError, setIsError] = useState(false);
  const [isLoading, setIsLoading] = useState(false);
- const [isRefetching, setIsRefetching] = useState(false);
- const [rowCount, setRowCount] = useState(10);
+ // const [isRefetching, setIsRefetching] = useState(false);
+ // const [rowCount, setRowCount] = useState(10);
 
  //table state
  const [columnFilters, setColumnFilters] = useState([]);
