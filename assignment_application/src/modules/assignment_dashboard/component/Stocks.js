@@ -1,10 +1,9 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import TableApp from '../app_structural_module/app_components/Table_assignment';
+import { App_Table } from '../../app_structural_module'
 import { Grid, Paper } from '@mui/material';
 import axios from 'axios';
-import { csvJSON } from '../../utils'
-import { Navigate, useNavigate } from "react-router-dom";
+import { csvJSON } from '../../../utils'
+import { useNavigate } from "react-router-dom";
 
 export default function Stocks(props) {
  const navigate = useNavigate();
@@ -34,7 +33,7 @@ export default function Stocks(props) {
  return (
   <Grid sm={3}>
    <Paper elevation={4}   >
-    {<TableApp tableData={data} rowClickedFunction={rowClickedFunction} />}
+    {<App_Table tableData={data} rowClickedFunction={rowClickedFunction} />}
    </Paper>
   </Grid>
  );

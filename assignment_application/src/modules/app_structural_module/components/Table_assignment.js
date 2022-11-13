@@ -5,13 +5,13 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
 
-const Table = ({ tableData, rowClickedFunction }) => {
+const App_Table = ({ tableData, rowClickedFunction }) => {
  //data and fetching state
  const [data, setData] = useState(tableData);
 
  // const [isError, setIsError] = useState(false);
  const [isLoading, setIsLoading] = useState(false);
- // const [isRefetching, setIsRefetching] = useState(false);
+ const [isRefetching, setIsRefetching] = useState(false);
  // const [rowCount, setRowCount] = useState(10);
 
  //table state
@@ -117,4 +117,4 @@ const Table = ({ tableData, rowClickedFunction }) => {
  );
 };
 
-export default Table;
+export default App_Table;
