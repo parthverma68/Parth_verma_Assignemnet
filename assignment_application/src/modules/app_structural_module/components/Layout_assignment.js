@@ -20,6 +20,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Outlet } from 'react-router-dom'
+import InstrumentQuotesContextProvider from '../../assignment_dashboard/Context/Instrument_Quotes_context';
 const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
@@ -167,7 +168,9 @@ export default function App_Layout() {
    <DrawerHeader />
 
    <div style={{ margin: open ? "1% 6% 6% 16% " : '1% 4% 6% 6%', transition: "margin .1s ease-in-out" }}>
-    <Outlet />
+    <InstrumentQuotesContextProvider>
+     <Outlet />
+    </InstrumentQuotesContextProvider>
    </div>
 
   </div>

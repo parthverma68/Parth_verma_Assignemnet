@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { App_Table } from '../../app_structural_module';
+import { AppTable } from '../../app_structural_module';
 
 export default function Quotes() {
   const location = useLocation();
@@ -31,6 +31,6 @@ export default function Quotes() {
 
   return (
     <>
-      {data && <App_Table tableData={data} />}
+      {data && <AppTable tableData={data} />}
     </>)
 }

@@ -26,7 +26,6 @@ const InstrumentQuotesContextProvider = ({ children }) => {
       type: INSTRUMENT_QUOTES_ACTION_TYPES.QUOTES_LIST_SAVE,
       payload: json
      })
-     setData(json[Symbol])
     }
    });
   } catch (err) {
@@ -34,19 +33,19 @@ const InstrumentQuotesContextProvider = ({ children }) => {
   }
  }
 
- const getInstruments = () => {
+ const getInstruments = async () => {
   try {
-   const baseURL = 'https://prototype.sbulltech.com/api/v2/instruments'
-   axios.get(`${baseURL}`).then((response) => {
-    if (response) {
-     let jsonData = JSON.parse(csvJSON(response.data))
-     dispatch({
-      type: INSTRUMENT_QUOTES_ACTION_TYPES.INSTRUMENT_LIST_SAVE,
-      payload: jsonData
-     })
-     console.log(jsonData)
-    }
-   });
+   const baseURL = api.instruments
+   let response = await axios.get(`${baseURL}`)
+   if (response) {
+    let jsonData = JSON.parse(csvJSON(response.data))
+    dispatch({
+     type: INSTRUMENT_QUOTES_ACTION_TYPES.INSTRUMENT_LIST_SAVE,
+     payload: jsonData
+    })
+    return jsonData
+   }
+
   } catch (err) {
    console.log(err)
   }
@@ -68,7 +67,7 @@ const InstrumentQuotesContextProvider = ({ children }) => {
 
  return (
   <InstrumentQuotesContext.Provider value={values}>
-   {{ children }}
+   {children}
   </InstrumentQuotesContext.Provider>
  )
 }

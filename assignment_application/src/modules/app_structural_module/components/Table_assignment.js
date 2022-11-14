@@ -49,15 +49,12 @@ const App_Table = ({ tableData, rowClickedFunction }) => {
  ]);
 
  const getRowClickFunction = (cell, index, row) => {
-  console.log("i mam workinf")
   rowClickedFunction && rowClickedFunction(row.original)
-
  }
 
  const createColumn = () => {
   if (data && data.length > 0) {
    let keys = data && data.length > 0 && Object.keys(data[0])
-
    let columConfig = keys.map((e, i) =>
    (
     {
@@ -89,10 +86,8 @@ const App_Table = ({ tableData, rowClickedFunction }) => {
   }
  }
 
-
  const columns = useMemo(
   createColumn,
-  [data],
  );
 
 
