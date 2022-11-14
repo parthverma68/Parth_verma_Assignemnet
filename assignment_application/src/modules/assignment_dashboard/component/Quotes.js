@@ -1,36 +1,37 @@
+// node_module level import goes here
+
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux'
+
+//sourcecode level import goes here
 import { AppTable } from '../../app_structural_module';
+import { useInstrument_quotes_context } from '../Context/Instrument_Quotes_context'
+function Quotes() {
 
-export default function Quotes() {
-  const location = useLocation();
+  const { getQuotes, validTill, currentSymbol } = useInstrument_quotes_context()
   const [data, setData] = React.useState('')
-  let Symbol = location && location.state && location.state.rowClicked
-
-  const getData = () => {
-    try {
-      const baseURL = `https://prototype.sbulltech.com/api/v2/quotes/${Symbol}`
-      axios.get(`${baseURL}`).then((response) => {
-        if (response) {
-          let json = (response.data && response.data.payload)
-
-          setData(json[Symbol])
-        }
-      });
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   React.useEffect(() => {
-    getData()
+    let payload = getQuotes(currentSymbol)
+      .then(responseQuotes => setData(responseQuotes[currentSymbol]))
+    let pooling = setTimeout(() => {
+      let payload = getQuotes(currentSymbol)
+        .then(responseQuotes => setData(responseQuotes[currentSymbol]))
 
-  }, [Symbol])
+    }, validTill);
 
-
+  }, [])
   return (
     <>
-      {data && <AppTable tableData={data} />}
+      {<AppTable
+        tableData={data}
+        heading={"Quotes"} />}
     </>)
 }
+
+const mapStateToProps = (state) => {
+
+  return state
+}
+
+export default connect(mapStateToProps)(Quotes)

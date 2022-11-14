@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom'
-
+import { Provider } from 'react-redux';
+import store from "../../../Store/store"
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,8 +18,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import InsightsIcon from '@mui/icons-material/Insights';
+import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
 import { Outlet } from 'react-router-dom'
 import InstrumentQuotesContextProvider from '../../assignment_dashboard/Context/Instrument_Quotes_context';
 const drawerWidth = 200;
@@ -138,7 +139,7 @@ export default function App_Layout() {
        disablePadding
        component={Link}
        to={`/${text.toLocaleLowerCase()}`}
-       sx={{ display: 'block' }}>
+       sx={{ display: 'block', paddingBottom: '20px' }}>
        <ListItemButton
         sx={{
          minHeight: 48,
@@ -153,9 +154,9 @@ export default function App_Layout() {
           justifyContent: 'center',
          }}
         >
-         {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+         {index % 2 === 0 ? <InsightsIcon /> : <RequestQuoteOutlinedIcon />}
         </ListItemIcon>
-        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText style={{ textDecoration: 'none' }} primary={text.toLocaleUpperCase()} sx={{ opacity: open ? 1 : 0 }} />
        </ListItemButton>
       </ListItem>
      ))}
@@ -168,12 +169,14 @@ export default function App_Layout() {
    <DrawerHeader />
 
    <div style={{ margin: open ? "1% 6% 6% 16% " : '1% 4% 6% 6%', transition: "margin .1s ease-in-out" }}>
-    <InstrumentQuotesContextProvider>
-     <Outlet />
-    </InstrumentQuotesContextProvider>
+    <Provider store={store}>
+     <InstrumentQuotesContextProvider>
+      <Outlet />
+     </InstrumentQuotesContextProvider>
+    </Provider>
    </div>
 
-  </div>
+  </div >
 
  );
 }

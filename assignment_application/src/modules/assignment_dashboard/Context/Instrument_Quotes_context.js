@@ -16,18 +16,18 @@ const InstrumentQuotesContextProvider = ({ children }) => {
 
  const [instrumentQuotes, dispatch] = React.useReducer(instrumentQuotesReducer, instumentQuotesState)
 
- const getQuotes = () => {
+ const getQuotes = async (Symbol) => {
   try {
    const baseURL = `${api.quotes}/${Symbol}`
-   axios.get(`${baseURL}`).then((response) => {
-    if (response) {
-     let json = (response.data && response.data.payload)
-     dispatch({
-      type: INSTRUMENT_QUOTES_ACTION_TYPES.QUOTES_LIST_SAVE,
-      payload: json
-     })
-    }
-   });
+   const response = await axios.get(`${baseURL}`)
+   if (response) {
+    let json = (response.data && response.data.payload)
+    dispatch({
+     type: INSTRUMENT_QUOTES_ACTION_TYPES.QUOTES_LIST_SAVE,
+     payload: json
+    })
+    return json
+   }
   } catch (err) {
    console.log(err)
   }
@@ -51,17 +51,26 @@ const InstrumentQuotesContextProvider = ({ children }) => {
   }
  }
 
- const Symbol = (data) => {
+ const saveSymbol = (data) => {
   dispatch({
-   type: INSTRUMENT_QUOTES_ACTION_TYPES,
+   type: INSTRUMENT_QUOTES_ACTION_TYPES.CURRENT_SYMBOL,
+   payload: data
+  })
+
+ }
+ const updateValidTill = (data) => {
+  dispatch({
+   type: INSTRUMENT_QUOTES_ACTION_TYPES.VALID_TILL,
    payload: data
   })
 
  }
 
  const values = {
+  saveSymbol,
   getQuotes,
   getInstruments,
+  updateValidTill,
   ...instrumentQuotes
  }
 

@@ -1,3 +1,4 @@
+// node_module level import goes here
 import React, { useEffect, useMemo, useState } from 'react';
 import MaterialReactTable from 'material-react-table';
 
@@ -5,7 +6,7 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
 
-const App_Table = ({ tableData, rowClickedFunction }) => {
+const App_Table = ({ tableData, rowClickedFunction, hideColumn, heading }) => {
  //data and fetching state
  const [data, setData] = useState(tableData);
 
@@ -55,6 +56,7 @@ const App_Table = ({ tableData, rowClickedFunction }) => {
  const createColumn = () => {
   if (data && data.length > 0) {
    let keys = data && data.length > 0 && Object.keys(data[0])
+   hideColumn && keys.splice(hideColumn, 1)
    let columConfig = keys.map((e, i) =>
    (
     {
@@ -87,12 +89,13 @@ const App_Table = ({ tableData, rowClickedFunction }) => {
  }
 
  const columns = useMemo(
-  createColumn,
+  createColumn, [data]
  );
 
 
  return (
   <MaterialReactTable
+
    columns={columns}
    data={data}
    state={{
@@ -107,6 +110,15 @@ const App_Table = ({ tableData, rowClickedFunction }) => {
    enableBottomToolbar={true}
    enableTopToolbar={true}
    muiTableBodyRowProps={{ hover: true }}
+   renderTopToolbarCustomActions={({ table }) => {
+    return (
+     <div style={{ display: 'flex', gap: '0.5rem' }}>
+      {heading}
+     </div>
+    );
+   }
+
+   }
 
   />
  );
